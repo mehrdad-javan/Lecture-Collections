@@ -1,12 +1,12 @@
 package se.lexicon;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import se.lexicon.model.Person;
+
+import java.util.*;
 
 public class ArrayListExample {
     public static void main(String[] args) {
-        ex3();
+        ex6();
     }
 
     public static void ex1() {
@@ -101,6 +101,86 @@ public class ArrayListExample {
         System.out.println(euCars.lastIndexOf("Volvo")); // 2
         System.out.println(euCars.lastIndexOf("Tesla")); // 3
         System.out.println(euCars.lastIndexOf("Test")); // -1
+
+    }
+
+    public static void ex4() {
+        ArrayList<Integer> numbers = new ArrayList<>();
+        numbers.add(5);
+        numbers.add(2);
+        numbers.add(8);
+        numbers.add(1);
+        numbers.add(3);
+        System.out.println("Original List: " + numbers);
+        numbers.sort(null);
+        //numbers.sort(Collections.reverseOrder());
+
+
+        //Collections.sort(numbers);
+        System.out.println("Sorted List: " + numbers);
+
+        List<String> letters = Arrays.asList("D", "B", "A", "C", "a");
+        //letters.sort(null); // [A, B, C, D, a]
+        letters.sort(String.CASE_INSENSITIVE_ORDER); // [A, a, B, C, D]
+
+    }
+
+    public static void ex5(){
+        String test1 = "TEST"; // abc123
+        String test2 = "TEST"; // ddd333
+        boolean isCompareString = test1.equals(test2);
+        System.out.println(isCompareString);// true
+        System.out.println(test1.hashCode()); // 1234567
+        System.out.println(test2.hashCode()); // 1234567
+
+
+        Person person1 = new Person(1, "Test1", "Test1", "test1@test.se");
+        Person person2 = new Person(1, "Test1", "Test1", "test1@test.se");
+        boolean isEqualPersons = person1.equals(person2); // true
+        System.out.println(isEqualPersons);
+        System.out.println(person1.hashCode());
+        System.out.println(person2.hashCode());
+        System.out.println("----------");
+        System.out.println(person1); //
+        System.out.println(person2); //
+
+    }
+
+    public static void ex6(){
+        ArrayList<Person> people = new ArrayList<>();
+        people.add(new Person(3, "John", "Doe", "jon@test.se"));
+        people.add(new Person(1, "Alice", "Smith", "alice@test.se"));
+        people.add(new Person(2, "Bob", "Johnson", "bob@test.se"));
+        System.out.println("Original List: ");
+        for (Person person: people){
+            System.out.println(person);
+        }
+        System.out.println("--------------------");
+        //Collections.sort(people);
+
+        /*Collections.sort(people, new Comparator<Person>() {
+            @Override
+            public int compare(Person param1, Person param2) {
+                return param1.getFirstName().compareTo(param2.getFirstName());
+            }
+        });*/
+
+        // How to sort the people by email?
+        Collections.sort(people, new Comparator<Person>() {
+            @Override
+            public int compare(Person o1, Person o2) {
+                return o2.getEmail().compareTo(o1.getEmail());
+            }
+        });
+
+        // Collections.sort(people, Comparator.comparing(Person::getEmail));
+
+
+        System.out.println("Sorted List: ");
+        for (Person person: people){
+            System.out.println(person);
+        }
+        System.out.println("--------------------");
 
     }
 }
